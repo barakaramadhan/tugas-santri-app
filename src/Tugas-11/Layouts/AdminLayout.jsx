@@ -1,11 +1,11 @@
 import { Outlet, Navigate } from "react-router"; // 1. Tambahkan Navigate di sini
 import { SidebarProvider } from "../../components/ui/sidebar";
-import AdminSidebar from "../admin/AdminSidebar";
+import AdminSidebar from "../Admin/AdminSidebar";
 import { useAuthStore } from "../Pages/Auth/store/useAuthStore";
 // import { useAuthStore } from "../"; // 2. Tambahkan import useAuthStore (sesuaikan path-nya)
 
 export default function AdminLayout() {
-  const user = useAuthStore((state) => state.user); 
+  const user = useAuthStore((state) => state.user);
 
   // TAMBAHKAN INI UNTUK DEBUGGING
   console.log("Data user di AdminLayout:", user);
@@ -17,7 +17,7 @@ export default function AdminLayout() {
   if (user.role !== "admin") {
     // Kalau console.log di atas isinya "admin" tapi tetap masuk ke sini,
     // berarti ada anomali lain.
-    console.log("User bukan admin, melempar ke /user..."); 
+    console.log("User bukan admin, melempar ke /user...");
     return <Navigate to="/user" replace />;
   }
   return (

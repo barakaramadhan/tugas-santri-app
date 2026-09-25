@@ -12,21 +12,7 @@ import SignUpPage from "./Tugas-11/Pages/Auth/SignUpPage";
 
 /* --- DIPOSISI KOMENTAR SEMENTARA JIKA ADMIN ERROR --- */
 
-import AdminHome from "./Tugas-11/Pages/Admin/AdminHome";
-
-import About from "./Tugas-11/Pages/Admin/About";
-
-import SantriList from "./Tugas-11/Pages/Admin/Santri/SantriList";
-
-import SantriDetail from "./Tugas-11/Pages/Admin/Santri/SantriDetail";
-
-import SantriNilai from "./Tugas-11/Pages/Admin/Santri/SantriNilai";
-
-import SantriAbsensi from "./Tugas-11/Pages/Admin/Santri/SantriAbsensi";
-
-import AppLayouts from "./Tugas-11/Layouts/AppLayouts";
-
-import SantriLayout from "./Tugas-11/Layouts/SantriLayout";
+import AdminHome from "./Tugas-11/Admin/AdminHome";
 
 /* */
 
@@ -68,35 +54,6 @@ export const router = createBrowserRouter([
       },
     ],
   },
-
-  /* --- ROUTE ADMIN (DIKOMENTARI SEMENTARA) ---
-
-  {
-    path: "/admin",
-    element: <AppLayouts />,
-    children: [
-      { index: true, element: <AdminHome /> },
-      { path: "about", element: <About /> },
-      {
-        path: "santri",
-        element: <SantriLayout />,
-        children: [
-          { index: true, element: <SantriList /> },
-          {
-            path: "list",
-            children: [
-              { index: true, element: <SantriList /> },
-              { path: ":santri_id", element: <SantriDetail /> },
-            ],
-          },
-          { path: "nilai", element: <SantriNilai /> },
-          { path: "absensi", element: <SantriAbsensi /> },
-        ],
-      },
-    ],
-  },
-
-  */
 
   // ROUTE ADMIN BARU
   {
