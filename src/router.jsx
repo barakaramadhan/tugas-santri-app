@@ -12,7 +12,7 @@ import SignUpPage from "./Tugas-11/Pages/Auth/SignUpPage";
 
 /* --- DIPOSISI KOMENTAR SEMENTARA JIKA ADMIN ERROR --- */
 
-import AdminHome from "./Tugas-11/Admin/AdminHome";
+import AdminHome from "./Tugas-11/admin/AdminHome";
 
 /* */
 
