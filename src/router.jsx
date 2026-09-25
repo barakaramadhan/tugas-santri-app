@@ -12,7 +12,7 @@ import SignUpPage from "./Tugas-11/Pages/Auth/SignUpPage";
 
 /* --- DIPOSISI KOMENTAR SEMENTARA JIKA ADMIN ERROR --- */
 
-import AdminHome from "./Tugas-11/admin/AdminHome";
+// import AdminHome from "./Tugas-11/admin/AdminHome";
 
 /* */
 
@@ -27,6 +27,7 @@ import UserLayout from "./Tugas-11/Layouts/UserLayout";
 import UserHome from "./Tugas-11/Pages/User/UserHome";
 
 import MyProfile from "./Tugas-11/Pages/User/MyProfile";
+import AdminHome from "./Tugas-11/admin/AdminHome";
 
 export const router = createBrowserRouter([
   {

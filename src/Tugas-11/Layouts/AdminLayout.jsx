@@ -1,6 +1,6 @@
 import { Outlet, Navigate } from "react-router"; // 1. Tambahkan Navigate di sini
 import { SidebarProvider } from "../../components/ui/sidebar";
-import AdminSidebar from "../Admin/AdminSidebar";
+import AdminSidebar from "../admin/AdminSidebar";
 import { useAuthStore } from "../Pages/Auth/store/useAuthStore";
 // import { useAuthStore } from "../"; // 2. Tambahkan import useAuthStore (sesuaikan path-nya)
 
