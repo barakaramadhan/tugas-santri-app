@@ -1,25 +1,32 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useAuthStore } from "./store/useAuthStore";
 
 export default function SignInPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const login = useAuthStore((state) => state.login);
   const eror = useAuthStore((state) => state.error);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // 1. Panggil login di dalam submit handler
-    const loggedInUser = login(email, password);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = (data) => {
+    // Panggil login di dalam submit handler
+    const loggedInUser = login(data.email, data.password);
 
     if (loggedInUser) {
-      // 3. Arahkan berdasarkan role
+      // Arahkan berdasarkan role
       if (loggedInUser.role === "admin") {
         navigate("/admin");
       } else if (loggedInUser.role === "user") {
@@ -34,6 +41,7 @@ export default function SignInPage() {
         <h1 className="text-3xl font-bold tracking-tight">
           Selamat Datang Kembali
         </h1>
+
         <p className="text-sm text-muted-foreground">
           Masukkan email dan password untuk masuk ke akun Anda.
         </p>
@@ -54,25 +62,39 @@ export default function SignInPage() {
               d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
+
           <span>{eror}</span>
         </div>
       )}
 
-      <form className="space-y-5" onSubmit={handleSubmit}>
+      <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-2">
           <label className="text-sm font-medium">Email</label>
+
           <Input
             type="email"
             placeholder="nama@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             className="h-11"
+            {...register("email", {
+              required: "Email wajib diisi",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Format email tidak valid",
+              },
+            })}
           />
+
+          {errors.email && (
+            <p className="text-sm text-red-500">
+              {errors.email.message}
+            </p>
+          )}
         </div>
 
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <label className="text-sm font-medium">Password</label>
+
             <Link
               to="/forgot-password"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -84,19 +106,35 @@ export default function SignInPage() {
           <Input
             type="password"
             placeholder="Masukkan password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             className="h-11"
+            {...register("password", {
+              required: "Password wajib diisi",
+              minLength: {
+                value: 6,
+                message: "Password minimal 6 karakter",
+              },
+            })}
           />
+
+          {errors.password && (
+            <p className="text-sm text-red-500">
+              {errors.password.message}
+            </p>
+          )}
         </div>
 
-        <Button className="w-full h-11" type="submit">
+        <Button
+          className="w-full h-11"
+          type="submit"
+          disabled={!isValid}
+        >
           Sign In
         </Button>
       </form>
 
       <div className="text-center text-sm text-muted-foreground">
         Belum punya akun?{" "}
+
         <Link
           to="/sign-up"
           className="font-medium text-foreground hover:underline"

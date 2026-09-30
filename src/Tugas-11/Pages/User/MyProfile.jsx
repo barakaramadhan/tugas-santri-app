@@ -1,17 +1,26 @@
 import { useAuthStore } from "../Auth/store/useAuthStore"; // Sesuaikan path-nya
 import { Button } from "@/components/ui/button";
-import { Mail, UserCircle, Shield, Calendar, MapPin, Edit3 } from "lucide-react";
+import {
+  Mail,
+  UserCircle,
+  Shield,
+  Calendar,
+  MapPin,
+  Edit3,
+} from "lucide-react";
+import { useNavigate } from "react-router";
 
 function MyProfile() {
   // Ambil data user yang sedang login
   const user = useAuthStore((state) => state.user);
+
+  const navigate = useNavigate();
 
   // Ambil huruf pertama dari nama untuk Avatar
   const initial = user?.name ? user.name.charAt(0).toUpperCase() : "U";
 
   return (
     <div className="p-6 md:p-10 max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      
       {/* Header Halaman */}
       <div className="space-y-1">
         <h1 className="text-3xl font-bold tracking-tight">Profil Saya</h1>
@@ -22,7 +31,6 @@ function MyProfile() {
 
       {/* Card Profil Utama */}
       <div className="rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden">
-        
         {/* Banner Cover (Bagian Atas Warna) */}
         <div className="h-32 md:h-40 bg-gradient-to-r from-blue-600 to-indigo-400"></div>
 
@@ -36,7 +44,12 @@ function MyProfile() {
 
           {/* Aksi / Tombol Edit */}
           <div className="flex justify-end mb-4">
-            <Button variant="outline" size="sm" className="gap-2 rounded-full">
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2 rounded-full"
+              onClick={() => navigate("/user/edit-profile")}
+            >
               <Edit3 className="h-4 w-4" />
               <span>Edit Profil</span>
             </Button>
@@ -44,10 +57,12 @@ function MyProfile() {
 
           {/* Info Nama & Role */}
           <div className="mt-4 md:mt-2 space-y-2">
-            <h2 className="text-2xl font-bold">{user?.name || "Nama Pengguna"}</h2>
+            <h2 className="text-2xl font-bold">
+              {user?.name || "Nama Pengguna"}
+            </h2>
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                {user?.role === 'admin' ? 'Administrator' : 'Santri'}
+                {user?.role === "admin" ? "Administrator" : "Santri"}
               </span>
               <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-semibold text-green-800 dark:bg-green-900 dark:text-green-200">
                 Aktif
@@ -59,15 +74,18 @@ function MyProfile() {
 
           {/* Detail Informasi User */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
             {/* Item Detail */}
             <div className="flex items-start gap-4">
               <div className="p-2 bg-muted rounded-lg text-muted-foreground">
                 <Mail className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Alamat Email</p>
-                <p className="text-base font-medium">{user?.email || "user@example.com"}</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Alamat Email
+                </p>
+                <p className="text-base font-medium">
+                  {user?.email || "user@example.com"}
+                </p>
               </div>
             </div>
 
@@ -76,8 +94,12 @@ function MyProfile() {
                 <Shield className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Hak Akses</p>
-                <p className="text-base font-medium capitalize">{user?.role || "User"}</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Hak Akses
+                </p>
+                <p className="text-base font-medium capitalize">
+                  {user?.role || "User"}
+                </p>
               </div>
             </div>
 
@@ -86,7 +108,9 @@ function MyProfile() {
                 <Calendar className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Bergabung Sejak</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Bergabung Sejak
+                </p>
                 <p className="text-base font-medium">Agustus 2024</p>
               </div>
             </div>
@@ -96,15 +120,15 @@ function MyProfile() {
                 <MapPin className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Lokasi / Asrama</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Lokasi / Asrama
+                </p>
                 <p className="text-base font-medium">Gedung Utama, Kamar 102</p>
               </div>
             </div>
-
           </div>
         </div>
       </div>
-      
     </div>
   );
 }
