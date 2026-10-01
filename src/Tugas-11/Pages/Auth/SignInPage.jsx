@@ -12,7 +12,7 @@ export default function SignInPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
   } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -21,12 +21,12 @@ export default function SignInPage() {
     },
   });
 
-  const onSubmit = (data) => {
-    // Panggil login di dalam submit handler
+  const onSubmit = async (data) => {
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     const loggedInUser = login(data.email, data.password);
 
     if (loggedInUser) {
-      // Arahkan berdasarkan role
       if (loggedInUser.role === "admin") {
         navigate("/admin");
       } else if (loggedInUser.role === "user") {
@@ -85,9 +85,7 @@ export default function SignInPage() {
           />
 
           {errors.email && (
-            <p className="text-sm text-red-500">
-              {errors.email.message}
-            </p>
+            <p className="text-sm text-red-500">{errors.email.message}</p>
           )}
         </div>
 
@@ -117,24 +115,21 @@ export default function SignInPage() {
           />
 
           {errors.password && (
-            <p className="text-sm text-red-500">
-              {errors.password.message}
-            </p>
+            <p className="text-sm text-red-500">{errors.password.message}</p>
           )}
         </div>
 
         <Button
           className="w-full h-11"
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || isSubmitting}
         >
-          Sign In
+          {isSubmitting ? "Signing In..." : "Sign In"}
         </Button>
       </form>
 
       <div className="text-center text-sm text-muted-foreground">
         Belum punya akun?{" "}
-
         <Link
           to="/sign-up"
           className="font-medium text-foreground hover:underline"
